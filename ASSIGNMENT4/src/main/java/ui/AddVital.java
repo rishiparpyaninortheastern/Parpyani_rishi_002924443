@@ -4,11 +4,13 @@
  */
 package ui;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
+import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.PersonDirectory;
@@ -60,24 +62,23 @@ public class AddVital extends javax.swing.JPanel {
         heartrate_txt = new javax.swing.JTextField();
         submit_btn = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        bodytemperature_txt = new javax.swing.JTextField();
+        oxygenlevel_txt = new javax.swing.JTextField();
         bloodpressure_txt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         fastingsugar_txt = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        Update_btn1 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         postmealsugar_txt = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel11 = new javax.swing.JLabel();
         iddropdown = new javax.swing.JComboBox<>();
         jScrollPane3 = new javax.swing.JScrollPane();
         Persondetstbl = new javax.swing.JTable();
+        Choosefile = new javax.swing.JButton();
+        bodytemperature_txt1 = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         jLabel1.setText("Person Details");
@@ -99,9 +100,9 @@ public class AddVital extends javax.swing.JPanel {
         });
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        jLabel8.setText("BodyAche");
+        jLabel8.setText("Oxygen Level");
 
-        bodytemperature_txt.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        oxygenlevel_txt.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
         bloodpressure_txt.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
@@ -124,32 +125,10 @@ public class AddVital extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel6.setText("Fasting Sugar");
 
-        Update_btn1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        Update_btn1.setText("Show Details");
-        Update_btn1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Update_btn1ActionPerformed(evt);
-            }
-        });
-
         jLabel10.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         jLabel10.setText("Any Other Problems");
 
         postmealsugar_txt.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-
-        jRadioButton1.setText("No");
-        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton1ActionPerformed(evt);
-            }
-        });
-
-        jRadioButton2.setText("Yes");
-        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButton2ActionPerformed(evt);
-            }
-        });
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -172,6 +151,16 @@ public class AddVital extends javax.swing.JPanel {
             }
         ));
         jScrollPane3.setViewportView(Persondetstbl);
+
+        Choosefile.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
+        Choosefile.setText("Choose File");
+        Choosefile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChoosefileActionPerformed(evt);
+            }
+        });
+
+        bodytemperature_txt1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -202,19 +191,19 @@ public class AddVital extends javax.swing.JPanel {
                                 .addGap(112, 112, 112)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(heartrate_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bodytemperature_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bodytemperature_txt1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(163, 163, 163)
+                                .addComponent(Choosefile))
                             .addComponent(bloodpressure_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(fastingsugar_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(postmealsugar_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(iddropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jRadioButton2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton1))
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(iddropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(oxygenlevel_txt, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(352, 352, 352)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -223,13 +212,11 @@ public class AddVital extends javax.swing.JPanel {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(313, 313, 313)
-                        .addComponent(submit_btn)
-                        .addGap(56, 56, 56)
-                        .addComponent(Update_btn1))
+                        .addComponent(submit_btn))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 829, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(538, Short.MAX_VALUE))
+                .addContainerGap(515, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,15 +243,16 @@ public class AddVital extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(postmealsugar_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bodytemperature_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Choosefile)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bodytemperature_txt1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2))
+                    .addComponent(oxygenlevel_txt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -273,9 +261,7 @@ public class AddVital extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(submit_btn)
-                    .addComponent(Update_btn1))
+                .addComponent(submit_btn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -289,9 +275,10 @@ public class AddVital extends javax.swing.JPanel {
      
      int heartrate=Integer.parseInt(heartrate_txt.getText());
      float bp=Float.parseFloat(bloodpressure_txt.getText());
+     int oxylevel=Integer.parseInt(oxygenlevel_txt.getText());
      int fs=Integer.parseInt(fastingsugar_txt.getText());
      int ps=Integer.parseInt(postmealsugar_txt.getText());
-     float temp=Float.parseFloat(bodytemperature_txt.getText());
+     float temp=Float.parseFloat(oxygenlevel_txt.getText());
      int id=Integer.parseInt(iddropdown.getSelectedItem().toString());
     //ArrayList <Encounter> e = new ArrayList<Encounter>();
      String time=new SimpleDateFormat("yyyy-mm-dd").format(new Date(System.currentTimeMillis()));
@@ -316,7 +303,7 @@ public class AddVital extends javax.swing.JPanel {
      bloodpressure_txt.setText(" ");
      fastingsugar_txt.setText(" ");
      postmealsugar_txt.setText(" ");
-     bodytemperature_txt.setText(" ");
+     oxygenlevel_txt.setText(" ");
     
      
      
@@ -326,20 +313,12 @@ public class AddVital extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_fastingsugar_txtActionPerformed
 
-    private void Update_btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Update_btn1ActionPerformed
+    private void ChoosefileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChoosefileActionPerformed
+          datainput();
 
-       
 
         // TODO add your handling code here:
-    }//GEN-LAST:event_Update_btn1ActionPerformed
-
-    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton2ActionPerformed
-
-    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jRadioButton1ActionPerformed
+    }//GEN-LAST:event_ChoosefileActionPerformed
 
 public void populateTable(){
         DefaultTableModel model=(DefaultTableModel) Persondetstbl.getModel();
@@ -384,11 +363,48 @@ Iterator itr = dropdown.iterator();
         }
 
         } 
+
+
+ public void datainput(){
+     File file = new File("C:\\Users\\rishi\\Downloads\\dummydata2.txt");
+      
+        try {
+     Scanner scanner=new Scanner(file);
+while (scanner.hasNextLine()) {
+              VitalSigns vs= new VitalSigns();
+                    
+                String Sentence = scanner.nextLine();
+                String word[] = Sentence.split(",");
+               int id=Integer.parseInt(word[0]);
+               String time=new SimpleDateFormat("yyyy-mm-dd").format(new Date(System.currentTimeMillis()));
+               Encounter eo= new Encounter();
+                eo.setEncounterDatetime(time);
+     //e.add(eo);
+             ehobj.addnew(id,eo);
+                vs.setHeartrate(Integer.parseInt(word[1]));
+                vs.setBloodpressure(Integer.parseInt(word[2]));
+                vs.setFastingsugar(Integer.parseInt(word[3]));
+                vs.setPostmealsugar(Integer.parseInt(word[4]));
+                vs.setTemperature(Integer.parseInt(word[5]));
+                vs.setOxygenlevel(Integer.parseInt(word[6]));
+                 vsd.addnew(id,vs);
+                     System.out.print("Data added of Vital Signs for four persons");
+                     System.out.println(vs.getBloodpressure());
+                     System.out.println(id);
+                     
+            }
+
+            
+        } catch (Exception e) {
+            System.out.println("An error occured");
+            e.printStackTrace();
+        }  
+  }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Choosefile;
     private javax.swing.JTable Persondetstbl;
-    private javax.swing.JButton Update_btn1;
     private javax.swing.JTextField bloodpressure_txt;
-    private javax.swing.JTextField bodytemperature_txt;
+    private javax.swing.JTextField bodytemperature_txt1;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField fastingsugar_txt;
     private javax.swing.JTextField heartrate_txt;
@@ -403,11 +419,10 @@ Iterator itr = dropdown.iterator();
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField oxygenlevel_txt;
     private javax.swing.JTextField postmealsugar_txt;
     private javax.swing.JButton submit_btn;
     // End of variables declaration//GEN-END:variables

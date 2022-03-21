@@ -47,7 +47,9 @@ PatientDirectory patientd;
         //this.eobj=eobj;
         DisplayVitals(v,pd,encounterobj);
          //DisplayAbnormalVitals(v,patientd,encounterobj);
-          DisplayAbnormalVitals();
+        //  DisplayAbnormalVitals();
+        
+        DisplayAbnormalTable();
     }
 
     
@@ -68,7 +70,6 @@ PatientDirectory patientd;
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Abnormalvitaltbl = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
 
         Vitaltbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,9 +106,6 @@ PatientDirectory patientd;
         ));
         jScrollPane2.setViewportView(Abnormalvitaltbl);
 
-        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ID" }));
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,10 +123,7 @@ PatientDirectory patientd;
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1))))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -142,9 +137,7 @@ PatientDirectory patientd;
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(44, 44, 44)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(245, Short.MAX_VALUE))
         );
@@ -158,8 +151,10 @@ public void  DisplayVitals(VitalSigns v,PersonDirectory pd,Encounter e){
          for(Person pi : pd.getObj() ){
              vcurr=vdobj.getObj();
             ecurr= ehobj.getObj();
-               Object [] row= new Object[8];  
+               Object [] row= new Object[9];  
+             System.out.print(pi.getId());
            for(VitalSigns vobj : vcurr.get(pi.getId())){
+               
                 for( Encounter eobj: ecurr.get(pi.getId())){
                    
                     row[0]=pi.getId();
@@ -169,8 +164,9 @@ public void  DisplayVitals(VitalSigns v,PersonDirectory pd,Encounter e){
                     row[4]=vobj.getFastingsugar();
                     row[5]=vobj.getPostmealsugar();
                     row[6]=vobj.getTemperature();
+                    row[7]=vobj.getOxygenlevel();
                  //eobj.getEncounterDatetime();
-                    row[7]=e.getEncounterDatetime();
+                    row[8]=e.getEncounterDatetime();
                     
                     
              }
@@ -212,6 +208,29 @@ public void  DisplayAbnormalVitals(){
     }
 }
   
+public void DisplayAbnormalTable(){
+    DefaultTableModel model=(DefaultTableModel) Abnormalvitaltbl.getModel();
+    model.setRowCount(0);
+    int row_count = Vitaltbl.getRowCount();
+    int column_count = Vitaltbl.getColumnCount();
+    column_count--;
+    boolean abnormal = false;
+    for(int i=0;i<row_count;i++){
+        if(Float.parseFloat(Vitaltbl.getValueAt(i, 3).toString())>120 || Integer.parseInt(Vitaltbl.getValueAt(i, 4).toString())>100 || Integer.parseInt(Vitaltbl.getValueAt(i, 2).toString())>120|| Integer.parseInt(Vitaltbl.getValueAt(i, 5).toString())>160 || Integer.parseInt(Vitaltbl.getValueAt(i, 7).toString())>100|| Float.parseFloat(Vitaltbl.getValueAt(i, 6).toString())<95){
+            abnormal = true;
+        }
+        if(abnormal == true){
+            Object [] row= new Object[column_count];
+            for(int j=0;j<column_count;j++){
+                      
+                    row[j]=Vitaltbl.getValueAt(i, j).toString();
+ 
+            }
+                               model.addRow(row);
+        }
+        abnormal = false;
+    }
+}
              
  public HashMap <Integer,ArrayList<VitalSigns>> abnormalrecord(){
       
@@ -220,15 +239,11 @@ public void  DisplayAbnormalVitals(){
          ArrayList <VitalSigns> vs= new ArrayList<VitalSigns>();
        for(Person p : pd.getObj()){
            for(VitalSigns v : vdobj.getObj().get(p.getId())){
-                 if(v.getBloodpressure()>120 || v.getFastingsugar()>80 || v.getHeartrate()>120|| v.getPostmealsugar()>160 || v.getTemperature()>100){
-                     
+                 if(v.getBloodpressure()>120 || v.getFastingsugar()>100 || v.getHeartrate()>120|| v.getPostmealsugar()>160 || v.getTemperature()>100|| v.getOxygenlevel()<95){
                      vs.add(v);
                  }
-                 
-                 
        }
            abnormal.put(p.getId(),vs);
-      
   }
       return abnormal;
   }
@@ -243,7 +258,6 @@ public void  DisplayAbnormalVitals(){
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Abnormalvitaltbl;
     private javax.swing.JTable Vitaltbl;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

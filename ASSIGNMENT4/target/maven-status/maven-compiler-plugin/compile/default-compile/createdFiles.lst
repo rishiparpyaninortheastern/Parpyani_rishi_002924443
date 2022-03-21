@@ -1,6 +1,5 @@
 ui\Addpersonp.class
 ui\Addpersonp$2.class
-ui\AddVital$4.class
 ui\Addpersonp$9.class
 model\Community.class
 ui\Addpersonp$7.class
@@ -15,7 +14,6 @@ model\PatientDirectory.class
 ui\AddVital$1.class
 ui\AddVital.class
 ui\Addpersonp$8.class
-ui\AddVital$5.class
 ui\Addpersonp$3.class
 model\PersonDirectory.class
 model\VitalSigns.class

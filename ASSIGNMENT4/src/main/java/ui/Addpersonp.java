@@ -576,10 +576,11 @@ public void populateTable(){
      File file = new File("C:\\Users\\rishi\\Downloads\\dummydata1.txt");
       
         try {
-            ArrayList <String> arr= new ArrayList<String>();
+
             Scanner scanner = new Scanner(file);
+          
             while (scanner.hasNextLine()) {
-                  Person p=new Person();
+                    Person p=new Person();
                 String Sentence = scanner.nextLine();
                 String word[] = Sentence.split(",");
                 p.setId(Integer.parseInt(word[0]));
@@ -592,10 +593,11 @@ public void populateTable(){
                  p.setHousenum(word[7]);
                  p.setCityname(word[8]);
                  pd.addnew(p);
-                  populateTable();
+                 
                      
                  
             }
+             populateTable();
             
         } catch (Exception e) {
             System.out.println("An error occured");
